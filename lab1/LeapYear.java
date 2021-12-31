@@ -29,5 +29,23 @@ public class LeapYear {
             }
         }
     }
+
+    /**
+     * 判断是否是闰年
+     * 能被400整除返回true
+     * 能被4整除且不能被100整除返回true
+     * 否则返回false
+     * @param year
+     * @return
+     */
+    public static boolean isLeapYear(int year){
+        if (year % 400 == 0){
+            return true;
+        }
+        if (year % 4 == 0 && year % 100 != 0){
+            return true;
+        }
+        return false;
+    }
 }
 
