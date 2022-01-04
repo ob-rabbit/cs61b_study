@@ -23,9 +23,6 @@ public class Planet {
 
     public String imgFileName;
 
-    public Planet() {
-    }
-
     public Planet(double xP, double yP, double xV, double yV, double m, String img) {
         this.xxPos = xP;
         this.yyPos = yP;
