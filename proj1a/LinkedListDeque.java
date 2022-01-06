@@ -1,4 +1,3 @@
-package com.bunny.cs61b_sp18.proj1a;
 
 /**
  * @author Bunny
@@ -10,53 +9,48 @@ public class LinkedListDeque<T> {
 
 
     public LinkedListDeque(){
-
+        myLinkedList = new MyLinkedList<T>();
     }
 
     //deep copy
-    public LinkedListDeque(LinkedListDeque other){
-
+    public LinkedListDeque(LinkedListDeque<T> other){
+        myLinkedList = new MyLinkedList<>();
+        myLinkedList.deepCopy(other.myLinkedList);
     }
 
     public void addFirst(T item){
-        //todo
+        myLinkedList.addFirst(item);
     }
 
     public void addLast(T item){
-        //todo
+        myLinkedList.addLast(item);
     }
 
     public boolean isEmpty(){
-        //todo
-        return true;
+        return myLinkedList.isEmpty();
     }
 
     public int size(){
-        //todo
-        return -1;
+        return myLinkedList.size();
     }
 
     public void printDeque(){
-        //todo
+        myLinkedList.printList();
     }
 
     public T removeFirst(){
-        //todo
-        return null;
+        return myLinkedList.removeFirst();
     }
 
     public T removeLast(){
-        //todo
-        return null;
+        return myLinkedList.removeLast();
     }
 
     public T get(int index){
-        //todo
-        return null;
+        return myLinkedList.get(index);
     }
 
     public T getRecursive(int index){
-        //todo
-        return null;
+        return  myLinkedList.getRecursive(index);
     }
 }
