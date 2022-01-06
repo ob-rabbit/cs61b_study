@@ -103,9 +103,9 @@ public class ArrayDeque<T> {
         int newCapacity = n << 1;
         Object[] a = new Object[newCapacity];
         int index = 0;
-        while (index<n){
+        while (index < n) {
             a[index++] = elements[p];
-            p = (p+1)%n;
+            p = (p + 1) % n;
         }
         elements = a;
         head = 0;
@@ -118,9 +118,9 @@ public class ArrayDeque<T> {
         int newCapacity = n >> 1;
         Object[] a = new Object[newCapacity];
         int index = 0;
-        while (p != tail){
+        while (p != tail) {
             a[index++] = elements[p];
-            p = (p+1)%n;
+            p = (p + 1) % n;
         }
         elements = a;
         head = 0;

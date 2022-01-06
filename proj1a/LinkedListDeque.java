@@ -8,7 +8,7 @@ public class LinkedListDeque<T> {
     private MyLinkedList<T> myLinkedList;
 
 
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         myLinkedList = new MyLinkedList<T>();
     }
 
@@ -18,39 +18,39 @@ public class LinkedListDeque<T> {
     //    myLinkedList.deepCopy(other.myLinkedList);
     //}
 
-    public void addFirst(T item){
+    public void addFirst(T item) {
         myLinkedList.addFirst(item);
     }
 
-    public void addLast(T item){
+    public void addLast(T item) {
         myLinkedList.addLast(item);
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return myLinkedList.isEmpty();
     }
 
-    public int size(){
+    public int size() {
         return myLinkedList.size();
     }
 
-    public void printDeque(){
+    public void printDeque() {
         myLinkedList.printList();
     }
 
-    public T removeFirst(){
+    public T removeFirst() {
         return myLinkedList.removeFirst();
     }
 
-    public T removeLast(){
+    public T removeLast() {
         return myLinkedList.removeLast();
     }
 
-    public T get(int index){
+    public T get(int index) {
         return myLinkedList.get(index);
     }
 
-    public T getRecursive(int index){
-        return  myLinkedList.getRecursive(index);
+    public T getRecursive(int index) {
+        return myLinkedList.getRecursive(index);
     }
 }

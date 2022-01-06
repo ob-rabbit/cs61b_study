@@ -114,7 +114,7 @@ public class MyLinkedList<T> {
             return list.item;
         }
         index--;
-        return (T) getRecursive(list.next,index);
+        return (T) getRecursive(list.next, index);
     }
 
 
@@ -151,12 +151,12 @@ public class MyLinkedList<T> {
         System.out.println(b.toString());
     }
 
-    public void deepCopy(MyLinkedList<T> other){
-        if (other == null){
+    public void deepCopy(MyLinkedList<T> other) {
+        if (other == null) {
             return;
         }
         ListNode<T> point = other.first;
-        while (point != null){
+        while (point != null) {
             this.addLast(point.item);
             point = point.next;
         }
