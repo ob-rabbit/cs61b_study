@@ -28,15 +28,17 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         elements[head = (head - 1) & (elements.length - 1)] = item;
         size++;
-        if (head == tail)
+        if (head == tail) {
             doubleCapacity();
+        }
     }
 
     public void addLast(T item) {
         elements[tail] = item;
         size++;
-        if ((tail = (tail + 1) & (elements.length - 1)) == head)
+        if ((tail = (tail + 1) & (elements.length - 1)) == head) {
             doubleCapacity();
+        }
     }
 
     public boolean isEmpty() {
@@ -65,8 +67,9 @@ public class ArrayDeque<T> {
     public T removeFirst() {
         int h = head;
         T result = (T) elements[h];
-        if (result == null)
+        if (result == null) {
             return null;
+        }
         elements[h] = null;
         head = (h + 1) & (elements.length - 1);
         size--;
@@ -79,8 +82,9 @@ public class ArrayDeque<T> {
     public T removeLast() {
         int t = (tail - 1) & (elements.length - 1);
         T result = (T) elements[t];
-        if (result == null)
+        if (result == null) {
             return null;
+        }
         elements[t] = null;
         tail = t;
         size--;
