@@ -100,11 +100,13 @@ public class ArrayDeque<T> {
     private void doubleCapacity() {
         int p = head;
         int n = elements.length;
-        int r = n - p;
         int newCapacity = n << 1;
         Object[] a = new Object[newCapacity];
-        System.arraycopy(elements, p, a, 0, r);
-        System.arraycopy(elements, 0, a, r, p);
+        int index = 0;
+        while (index<n){
+            a[index++] = elements[p];
+            p = (p+1)%n;
+        }
         elements = a;
         head = 0;
         tail = n;
@@ -113,13 +115,15 @@ public class ArrayDeque<T> {
     private void reduceCapacity() {
         int p = head;
         int n = elements.length;
-        int r = n - p;
         int newCapacity = n >> 1;
         Object[] a = new Object[newCapacity];
-        System.arraycopy(elements, p, a, 0, r);
-        System.arraycopy(elements, 0, a, r, p);
+        int index = 0;
+        while (p != tail){
+            a[index++] = elements[p];
+            p = (p+1)%n;
+        }
         elements = a;
         head = 0;
-        tail = n;
+        tail = index;
     }
 }

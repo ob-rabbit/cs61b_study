@@ -13,10 +13,10 @@ public class LinkedListDeque<T> {
     }
 
     //deep copy
-    public LinkedListDeque(LinkedListDeque<T> other){
-        myLinkedList = new MyLinkedList<>();
-        myLinkedList.deepCopy(other.myLinkedList);
-    }
+    //public LinkedListDeque(LinkedListDeque<T> other){
+    //    myLinkedList = new MyLinkedList<>();
+    //    myLinkedList.deepCopy(other.myLinkedList);
+    //}
 
     public void addFirst(T item){
         myLinkedList.addFirst(item);
