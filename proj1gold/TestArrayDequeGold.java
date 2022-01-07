@@ -1,4 +1,4 @@
-package com.bunny.cs61b_sp18.proj1gold;
+
 
 import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
