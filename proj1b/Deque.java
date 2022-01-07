@@ -1,4 +1,3 @@
-package com.bunny.cs61b_sp18.proj1b;
 
 /**
  * @author Bunny
