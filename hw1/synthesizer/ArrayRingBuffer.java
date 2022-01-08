@@ -22,6 +22,14 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         last = 0;
     }
 
+    public boolean isEmpty() {
+        return fillCount == 0;
+    }
+
+    public boolean isFull() {
+        return fillCount == capacity;
+    }
+
     /**
      * Adds x to the end of the ring buffer. If there is no room, then
      * throw new RuntimeException("Ring buffer overflow"). Exceptions
@@ -57,6 +65,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      * Return oldest item, but don't remove it.
      */
     public T peek() {
+        if (isEmpty()) {
+            throw new RuntimeException("Ring Buffer Underflow");
+        }
         return rb[first];
     }
 

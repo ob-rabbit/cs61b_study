@@ -12,10 +12,10 @@ public class GuitarHero {
     private static final String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
     private static GuitarString[] sounds;
 
-    private static void init(){
+    private static void init() {
         sounds = new GuitarString[keyboard.length()];
-        for(int i = 0;i < keyboard.length();i++){
-            double fre = CONCERT_A*Math.pow(2,(i-24)/12);
+        for (int i = 0; i < keyboard.length(); i++) {
+            double fre = CONCERT_A * Math.pow(2, (i - 24) / 12);
             sounds[i] = new GuitarString(fre);
         }
 
@@ -37,15 +37,15 @@ public class GuitarHero {
 
             /* compute the superposition of samples */
             double sample = 0.0;
-            for(int i = 0;i < sounds.length;i++){
-                sample+=sounds[i].sample();
+            for (int i = 0; i < sounds.length; i++) {
+                sample += sounds[i].sample();
             }
 
             /* play the sample on standard audio */
             StdAudio.play(sample);
 
             /* advance the simulation of each guitar string by one step */
-            for(int i = 0;i < sounds.length;i++){
+            for (int i = 0; i < sounds.length; i++) {
                 sounds[i].tic();
             }
         }
