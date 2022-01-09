@@ -1,4 +1,4 @@
-import synthesizer.*;
+import synthesizer.GuitarString;
 import edu.princeton.cs.algs4.StdAudio;
 import edu.princeton.cs.algs4.StdDraw;
 

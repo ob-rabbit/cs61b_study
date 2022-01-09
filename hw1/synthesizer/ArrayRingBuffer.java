@@ -1,7 +1,6 @@
 package synthesizer;
 
-import java.util.*;
-import java.util.function.Consumer;
+import java.util.Iterator;
 
 public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
 
