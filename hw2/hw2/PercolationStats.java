@@ -33,6 +33,7 @@ public class PercolationStats {
 
     /**
      * 计算平均值
+     *
      * @return
      */
     public double mean() {
@@ -42,6 +43,7 @@ public class PercolationStats {
 
     /**
      * 计算样本偏差
+     *
      * @return
      */
     public double stddev() {

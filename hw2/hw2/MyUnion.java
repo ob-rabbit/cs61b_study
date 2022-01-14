@@ -36,7 +36,7 @@ public class MyUnion {
     public void union(int a, int b) {
         int i = find(a);
         int j = find(b);
-        if (i==j){
+        if (i == j) {
             return;
         }
         if (rank[i] < rank[j]) {
@@ -64,7 +64,7 @@ public class MyUnion {
         }
     }
 
-    public boolean isUnion(int a,int b){
+    public boolean isUnion(int a, int b) {
         return find(a) == find(b);
     }
 }

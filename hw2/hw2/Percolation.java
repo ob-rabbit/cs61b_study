@@ -23,11 +23,11 @@ public class Percolation {
         this.openSite = 0;
         this.N = N;
         topSites = new MyUnion(N * N + 2);
-        top = N*N;
-        bottom = N*N+1;
-        for(int i = 0;i < N;i++){
-            topSites.union(top,xyToIndex(0,i));
-            topSites.union(bottom,xyToIndex(N-1,i));
+        top = N * N;
+        bottom = N * N + 1;
+        for (int i = 0; i < N; i++) {
+            topSites.union(top, xyToIndex(0, i));
+            topSites.union(bottom, xyToIndex(N - 1, i));
         }
 
 
@@ -50,8 +50,8 @@ public class Percolation {
         if (next_x < 0 || next_x >= N || next_y < 0 || next_y >= N) {
             return;
         }
-        if (map[next_x][next_y] == 1){
-            topSites.union(xyToIndex(x,y),xyToIndex(next_x,next_y));
+        if (map[next_x][next_y] == 1) {
+            topSites.union(xyToIndex(x, y), xyToIndex(next_x, next_y));
         }
     }
 
@@ -60,11 +60,11 @@ public class Percolation {
     }
 
     public boolean isFull(int row, int col) {
-        if (!isOpen(row,col)){
+        if (!isOpen(row, col)) {
             return false;
         }
 
-        return topSites.isUnion(xyToIndex(row,col),top);
+        return topSites.isUnion(xyToIndex(row, col), top);
     }
 
     public int numberOfOpenSites() {
@@ -72,10 +72,10 @@ public class Percolation {
     }
 
     public boolean percolates() {
-        if (openSite==0){
+        if (openSite == 0) {
             return false;
         }
-        return topSites.isUnion(top,bottom);
+        return topSites.isUnion(top, bottom);
     }
 
     private int xyToIndex(int x, int y) {
