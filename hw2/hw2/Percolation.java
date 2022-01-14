@@ -82,5 +82,8 @@ public class Percolation {
         return x * N + y;
     }
 
+    //test
+    public static void main(String[] args) {
 
+    }
 }
