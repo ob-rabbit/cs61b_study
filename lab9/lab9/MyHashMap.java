@@ -4,10 +4,10 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- *  A hash table-backed Map implementation. Provides amortized constant time
- *  access to elements via get(), remove(), and put() in the best case.
+ * A hash table-backed Map implementation. Provides amortized constant time
+ * access to elements via get(), remove(), and put() in the best case.
  *
- *  @author Your name here
+ * @author Your name here
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
 
@@ -16,6 +16,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     private ArrayMap<K, V>[] buckets;
     private int size;
+    private int modCount;
 
     private int loadFactor() {
         return size / buckets.length;
@@ -23,6 +24,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     public MyHashMap() {
         buckets = new ArrayMap[DEFAULT_SIZE];
+        this.modCount = DEFAULT_SIZE * 100;
+        this.clear();
+    }
+
+    public MyHashMap(int initialSize) {
+        buckets = new ArrayMap[initialSize];
+        this.modCount = initialSize * 100;
         this.clear();
     }
 
@@ -35,9 +43,11 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }
     }
 
-    /** Computes the hash function of the given key. Consists of
-     *  computing the hashcode, followed by modding by the number of buckets.
-     *  To handle negative numbers properly, uses floorMod instead of %.
+    /**
+     * Computes the hash function of the given key. Consists of
+     * computing the hashcode, followed by modding by the number of buckets.
+     * To handle negative numbers properly, uses floorMod instead of %.
+     * return index;
      */
     private int hash(K key) {
         if (key == null) {
@@ -53,19 +63,49 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        int index = hash(key);
+        return buckets[index].get(key);
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        int index = hash(key);
+        if (!buckets[index].containsKey(key)) {
+            size++;
+        }
+        buckets[index].put(key, value);
+        //碰撞因子大于0.75，扩容
+        double curLoadFactor = size / modCount;
+        if (curLoadFactor > MAX_LF) {
+            int newLength = 0;
+            if (buckets.length > (Integer.MAX_VALUE >> 1)) {
+                newLength = Integer.MAX_VALUE;
+            } else {
+                newLength = buckets.length << 1;
+            }
+            ArrayMap[] newMaps = new ArrayMap[newLength];
+            for (int i = 0; i < buckets.length; i++) {
+                for (K k : buckets[i].keySet()) {
+                    V v = buckets[i].get(k);
+                    newMaps[hash(k, newLength)].put(key, value);
+                }
+            }
+            buckets = newMaps;
+        }
+    }
+
+    private int hash(K key, int length) {
+        if (key == null) {
+            return 0;
+        }
+        return Math.floorMod(key.hashCode(), length);
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
