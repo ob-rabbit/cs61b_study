@@ -40,7 +40,7 @@ public class SimpleOomage implements Oomage {
         if (!USE_PERFECT_HASH) {
             return red + green + blue;
         } else {
-            return ("" + red + green + blue).hashCode();
+            return (""+red*7+green*11+blue*17).hashCode();
         }
     }
 
