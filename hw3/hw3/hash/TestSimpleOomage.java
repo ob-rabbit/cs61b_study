@@ -23,20 +23,13 @@ public class TestSimpleOomage {
 
     @Test
     public void testHashCodePerfect() {
-        /* TODO: Write a test that ensures the hashCode is perfect,
-          meaning no two SimpleOomages should EVER have the same
-          hashCode UNLESS they have the same red, blue, and green values!
-         */
-        SimpleOomage ooA = new SimpleOomage(5, 10, 20);
-        SimpleOomage ooA2 = new SimpleOomage(10, 5, 20);
-        SimpleOomage ooB = new SimpleOomage(5, 10, 20);
-        assertNotEquals(ooA, ooA2);
-        assertEquals(ooA, ooB);
-        HashSet<SimpleOomage> hashSet = new HashSet<>();
-        hashSet.add(ooA);
-        hashSet.add(ooA2);
-        assertTrue(hashSet.contains(ooA2));
-        assertTrue(hashSet.contains(ooB));
+        SimpleOomage ooA = new SimpleOomage(50, 90, 195);
+        SimpleOomage ooA2 = new SimpleOomage(105, 110, 105);
+        SimpleOomage ooB = new SimpleOomage(90, 50, 195);
+        SimpleOomage ooB2 = new SimpleOomage(90, 50, 195);
+        assertNotEquals(ooA.hashCode(), ooA2.hashCode());
+        assertNotEquals(ooA.hashCode(), ooB.hashCode());
+        assertEquals(ooB2.hashCode(), ooB.hashCode());
     }
 
     @Test

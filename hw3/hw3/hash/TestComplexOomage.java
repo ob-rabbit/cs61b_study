@@ -2,6 +2,7 @@ package hw3.hash;
 
 import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -19,9 +20,6 @@ public class TestComplexOomage {
         }
     }
 
-    /* This should pass if your OomageTestUtility.haveNiceHashCodeSpread
-       is correct. This is true even though our given ComplexOomage class
-       has a flawed hashCode. */
     @Test
     public void testRandomOomagesHashCodeSpread() {
         List<Oomage> oomages = new ArrayList<>();
@@ -41,7 +39,7 @@ public class TestComplexOomage {
 
         int N = 10000;
 
-        for(int i = 0;i < N;i++){
+        for (int i = 0; i < N; i++) {
             deadlyList.add(randomC());
         }
 
@@ -49,17 +47,19 @@ public class TestComplexOomage {
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(deadlyList, 10));
     }
 
-    private ComplexOomage randomC(){
+    private ComplexOomage randomC() {
         int size = StdRandom.uniform(1, 10);
         ArrayList<Integer> params = new ArrayList<>(size);
-        int num = StdRandom.uniform(9,13);
+        int num = StdRandom.uniform(9, 13);
         for (int i = 0; i < size; i += 1) {
             params.add(num);
         }
         return new ComplexOomage(params);
     }
 
-    /** Calls tests for SimpleOomage. */
+    /**
+     * Calls tests for SimpleOomage.
+     */
     public static void main(String[] args) {
         jh61b.junit.textui.runClasses(TestComplexOomage.class);
     }

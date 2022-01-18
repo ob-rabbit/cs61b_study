@@ -40,11 +40,7 @@ public class SimpleOomage implements Oomage {
         if (!USE_PERFECT_HASH) {
             return red + green + blue;
         } else {
-            StringBuilder sb = new StringBuilder();
-            sb.append(red);
-            sb.append(green);
-            sb.append(blue);
-            return sb.hashCode();
+            return ("" + red + green + blue).hashCode();
         }
     }
 
