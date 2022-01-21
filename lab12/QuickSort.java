@@ -65,32 +65,21 @@ public class QuickSort {
      */
     public static <Item extends Comparable> Queue<Item> quickSort(
             Queue<Item> items) {
-        if (items.size() <= 1) {
+        if (items == null || items.size() <=1){
             return items;
         }
         Item randomItem = QuickSort.getRandomItem(items);
         Queue<Item> less = new Queue<>();
         Queue<Item> greater = new Queue<>();
         Queue<Item> equal = new Queue<>();
-        QuickSort.partition(items, randomItem, less, equal, greater);
-        quickSort(less);
-        quickSort(greater);
+        QuickSort.partition(items,randomItem,less,equal,greater);
+        less = quickSort(less);
+        greater = quickSort(greater);
         Queue<Item> catenate1 = QuickSort.catenate(less, equal);
         Queue<Item> catenate2 = QuickSort.catenate(catenate1, greater);
 
         return catenate2;
     }
 
-    public static void main(String[] args) {
-        Queue<String> students = new Queue<>();
-        students.enqueue("Alice");
-        //students.enqueue("Vanessa");
-        students.enqueue("Ethan");
-        students.enqueue("Athan");
 
-        Queue<String> strings = QuickSort.quickSort(students);
-        for (String string : strings) {
-            System.out.println(string);
-        }
-    }
 }
