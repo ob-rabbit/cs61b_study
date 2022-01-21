@@ -39,21 +39,23 @@ public class Board implements WorldState {
      * The number of tiles in the wrong position
      */
     public int hamming() {
-        int index = 1;
         int sum = 0;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (tiles[i][j] == BLANK) {
                     continue;
                 }
-                if (tiles[i][j] != index) {
+                if (tiles[i][j] != xyTo1D(i, j)) {
                     sum++;
                 }
-                index++;
             }
 
         }
         return sum;
+    }
+
+    private int xyTo1D(int i, int j) {
+        return i * N + j + 1;
     }
 
     /**
@@ -64,21 +66,20 @@ public class Board implements WorldState {
      */
     public int manhattan() {
         int sum = 0;
-        int index = 1;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (tiles[i][j] == BLANK) {
                     continue;
                 }
-                if (tiles[i][j] != index) {
-                    int col = tiles[i][j] % N;
-                    int row = tiles[i][j] / N;
-                    sum += Math.abs(i - row) + Math.abs(j - col);
-                }
-                index++;
-            }
+                if (tiles[i][j] != xyTo1D(i, j)) {
+                    int x = (tiles[i][j] - 1) / N;
+                    int y = (tiles[i][j] - 1) % N;
 
+                    sum += Math.abs(x - i) + Math.abs(y - j);
+                }
+            }
         }
+
         return sum;
     }
 
@@ -111,7 +112,7 @@ public class Board implements WorldState {
 
     @Override
     public int estimatedDistanceToGoal() {
-        return hamming();
+        return manhattan();
     }
 
     @Override
@@ -142,6 +143,7 @@ public class Board implements WorldState {
         return neighbors;
 
     }
+
 
     private void swap(int[][] newTiles, int i, int j, int newi, int newj) {
         int temp = newTiles[i][j];

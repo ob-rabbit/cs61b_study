@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+
 /**
  * @author Bunny
  * @create 2022-01-20 14:29
@@ -25,8 +26,6 @@ public class Solver {
      * to the solution
      */
     private Deque<WorldState> path;
-
-    private PriorityQueue<Node> queue;
 
     private Map<WorldState, Integer> priorityMap;
 
@@ -52,20 +51,21 @@ public class Solver {
         this.minMoves = 0;
         path = new LinkedList<>();
         priorityMap = new HashMap<>();
-        queue = new PriorityQueue<>(new Comparator<Node>() {
-            @Override
-            public int compare(Node o1, Node o2) {
-                return o1.priority.compareTo(o2.priority);
-            }
-        });
 
         aStartSearch();
 
     }
 
     private void aStartSearch() {
-        //记录访问过的状态
+        PriorityQueue<Node> queue = new PriorityQueue<>(new Comparator<Node>() {
+            @Override
+            public int compare(Node o1, Node o2) {
+                return o1.priority - o2.priority;
+            }
+        });
+
         Map<WorldState, Boolean> visited = new HashMap<>();
+
         //开始状态入队
         queue.add(new Node(puzzle, 0, 0, null));
 
@@ -82,25 +82,27 @@ public class Solver {
                 }
                 break;
             }
-            int distanceToStart = 1 + curNode.moves;
             //将当前状态的相邻状态入队
             for (WorldState neighbor : curNode.value.neighbors()) {
-                if (!visited.containsKey(neighbor)) {
-                    visited.put(neighbor, true);
-                    int priority = calPriority(neighbor, distanceToStart);
-                    queue.add(new Node(neighbor, priority, distanceToStart, curNode));
+                if (visited.containsKey(neighbor)) {
+                    continue;
                 }
+                if (curNode.parent != null && neighbor.equals(curNode.parent.value)) {
+                    continue;
+                }
+
+                int priority = calPriority(neighbor, curNode.moves + 1);
+                queue.add(new Node(neighbor, priority, curNode.moves + 1, curNode));
             }
         }
     }
 
     private int calPriority(WorldState state, int moves) {
-        if (priorityMap.containsKey(state)) {
-            return priorityMap.get(state);
+        if (!priorityMap.containsKey(state)) {
+            priorityMap.put(state, state.estimatedDistanceToGoal());
         }
-        int temp = moves + state.estimatedDistanceToGoal();
-        priorityMap.put(state, temp);
-        return temp;
+
+        return priorityMap.get(state) + moves;
     }
 
 
