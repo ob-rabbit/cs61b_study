@@ -28,7 +28,24 @@ public class Solver {
 
     private PriorityQueue<Node> queue;
 
-    private Map<String, Integer> priorityMap;
+    private Map<WorldState, Integer> priorityMap;
+
+    private class Node {
+        private WorldState value;
+
+        private Integer priority;
+
+        private Integer moves;
+
+        private Node parent;
+
+        public Node(WorldState value, Integer priority, Integer e, Node parent) {
+            this.priority = priority;
+            this.value = value;
+            this.moves = e;
+            this.parent = parent;
+        }
+    }
 
     public Solver(WorldState initial) {
         this.puzzle = initial;
@@ -47,68 +64,53 @@ public class Solver {
     }
 
     private void aStartSearch() {
-        Map<String, Boolean> visited = new HashMap<>();
+        //记录访问过的状态
+        Map<WorldState, Boolean> visited = new HashMap<>();
+        //开始状态入队
         queue.add(new Node(puzzle, 0, 0, null));
-        Word word;
+
         while (!queue.isEmpty()) {
+            //优先级最高的状态出队
             Node curNode = queue.remove();
-            word = (Word) curNode.value;
-            visited.put(word.getWord(), true);
+            visited.put(curNode.value, true);
+            //如果当前状态是目标状态
             if (curNode.value.isGoal()) {
-                minMoves = curNode.estimatedDistanceToStart;
+                minMoves = curNode.moves;
                 while (curNode != null) {
                     path.addFirst(curNode.value);
                     curNode = curNode.parent;
                 }
                 break;
             }
-            int distanceToStart = 1 + curNode.estimatedDistanceToStart;
+            int distanceToStart = 1 + curNode.moves;
+            //将当前状态的相邻状态入队
             for (WorldState neighbor : curNode.value.neighbors()) {
-                word = (Word) neighbor;
-                if (!visited.containsKey(word.getWord())) {
-                    visited.put(word.getWord(), true);
-                    int priority = calPriority(word, distanceToStart);
-                    queue.add(new Node(word, priority, distanceToStart, curNode));
+                if (!visited.containsKey(neighbor)) {
+                    visited.put(neighbor, true);
+                    int priority = calPriority(neighbor, distanceToStart);
+                    queue.add(new Node(neighbor, priority, distanceToStart, curNode));
                 }
             }
         }
     }
 
-    private int calPriority(Word state, int f) {
-        if (priorityMap.containsKey(state.getWord())) {
-            return priorityMap.get(state.getWord());
+    private int calPriority(WorldState state, int moves) {
+        if (priorityMap.containsKey(state)) {
+            return priorityMap.get(state);
         }
-        int temp = f + state.estimatedDistanceToGoal();
-        priorityMap.put(state.getWord(), temp);
+        int temp = moves + state.estimatedDistanceToGoal();
+        priorityMap.put(state, temp);
         return temp;
     }
 
 
     public int moves() {
-
         return minMoves;
 
     }
 
     public Iterable<WorldState> solution() {
         return path;
-    }
-
-    private class Node {
-        public WorldState value;
-
-        private Integer priority;
-
-        private Integer estimatedDistanceToStart;
-
-        private Node parent;
-
-        public Node(WorldState value, Integer priority, Integer e, Node parent) {
-            this.priority = priority;
-            this.value = value;
-            this.estimatedDistanceToStart = e;
-            this.parent = parent;
-        }
     }
 
 }
