@@ -34,6 +34,8 @@ public class GraphDB {
 
     private Map<Long, Node> nodesHaveName = new LinkedHashMap<>();
 
+    private KDTree kdTree = new KDTree();
+
 
     /**
      * Example constructor shows how to create and start an XML parser.
@@ -55,6 +57,12 @@ public class GraphDB {
             e.printStackTrace();
         }
         clean();
+
+        //构建kdtree
+        for (Long aLong : nodes.keySet()) {
+            kdTree.add(nodes.get(aLong));
+        }
+
     }
 
     public Map<Long, Node> getNodes() {
@@ -180,9 +188,7 @@ public class GraphDB {
      * @return The id of the node in the graph closest to the target.
      */
     long closest(double lon, double lat) {
-
-        //todo
-        return 0;
+        return kdTree.nearest(lon,lat);
     }
 
     /**
