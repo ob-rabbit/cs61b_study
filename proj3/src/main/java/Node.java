@@ -14,10 +14,8 @@ public class Node {
     private String name;
 
     //节点经度
-
     private double longitude;
     //节点纬度
-
     private double latitude;
 
     private Set<Long> adjacentNodes;
