@@ -108,7 +108,7 @@ public class GraphBuildingHandler extends DefaultHandler {
             //System.out.println("Tag with k=" + k + ", v=" + v + ".");
         } else if (activeState.equals("node") && qName.equals("tag") && attributes.getValue("k")
                 .equals("name")) {
-            String name = attributes.getValue("name");
+            String name = attributes.getValue("v");
             //去除name中其他字符保留英文字母
             String cleanName = GraphDB.cleanString(name);
 

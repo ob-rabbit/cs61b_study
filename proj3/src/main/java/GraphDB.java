@@ -7,6 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -88,7 +89,14 @@ public class GraphDB {
      * we can reasonably assume this since typically roads are connected.
      */
     private void clean() {
-        // TODO: Your code here.
+        //删除没有相邻节点的节点
+        Iterator<Long> iterator = nodes.keySet().iterator();
+        while (iterator.hasNext()){
+            Long next = iterator.next();
+            if (nodes.get(next).getAdjacentNodes().isEmpty()){
+                iterator.remove();
+            }
+        }
     }
 
     /**
@@ -98,7 +106,7 @@ public class GraphDB {
      */
     Iterable<Long> vertices() {
         //YOUR CODE HERE, this currently returns only an empty list.
-        return new ArrayList<Long>();
+        return nodes.keySet();
     }
 
     /**
@@ -108,7 +116,7 @@ public class GraphDB {
      * @return An iterable of the ids of the neighbors of v.
      */
     Iterable<Long> adjacent(long v) {
-        return null;
+        return nodes.get(v).getAdjacentNodes();
     }
 
     /**
@@ -172,6 +180,8 @@ public class GraphDB {
      * @return The id of the node in the graph closest to the target.
      */
     long closest(double lon, double lat) {
+
+        //todo
         return 0;
     }
 
@@ -182,7 +192,7 @@ public class GraphDB {
      * @return The longitude of the vertex.
      */
     double lon(long v) {
-        return 0;
+        return nodes.get(v).getLongitude();
     }
 
     /**
@@ -192,7 +202,7 @@ public class GraphDB {
      * @return The latitude of the vertex.
      */
     double lat(long v) {
-        return 0;
+        return nodes.get(v).getLatitude();
     }
 
     public void addNode(Node node) {
