@@ -315,8 +315,7 @@ public class MapServer {
      * "id" : Number, The id of the node. <br>
      */
     public static List<Map<String, Object>> getLocations(String locationName) {
-        //todo
-        return new LinkedList<>();
+        return graph.getLocations(locationName);
     }
 
     /**

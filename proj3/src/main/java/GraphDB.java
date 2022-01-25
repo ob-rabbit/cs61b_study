@@ -7,6 +7,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -32,7 +34,7 @@ public class GraphDB {
 
     private Map<Long, Way> ways = new LinkedHashMap<>();
 
-    private Map<String, Long> location = new LinkedHashMap<>();
+    private Map<String, List<Long>> location = new LinkedHashMap<>();
 
     private Map<Long, Node> nodesHaveName = new LinkedHashMap<>();
 
@@ -231,7 +233,7 @@ public class GraphDB {
         nodes.get(node1).getAdjacentNodes().add(node2);
     }
 
-    public Map<String, Long> getLocation() {
+    public Map<String, List<Long>> getLocation() {
         return location;
     }
 
@@ -269,5 +271,30 @@ public class GraphDB {
 
     public void addTrieName(String cleanName, String name) {
         trieNodeName.add(cleanName,name);
+    }
+
+    public List<Map<String, Object>> getLocations(String locationName) {
+        List<Map<String, Object>> res = new LinkedList<>();
+        if (!location.containsKey(locationName)) {
+            return res;
+        }
+        for (long id : location.get(locationName)) {
+            Node node = nodesHaveName.get(id);
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",node.getId());
+            map.put("lat",node.getLatitude());
+            map.put("lon",node.getLongitude());
+            map.put("name",node.getName());
+            res.add(map);
+        }
+        return res;
+    }
+
+    public void addLocation(String cleanName, long id) {
+        if (location.containsKey(cleanName)){
+            location.get(cleanName).add(id);
+        }else{
+            location.put(cleanName, Arrays.asList(id));
+        }
     }
 }

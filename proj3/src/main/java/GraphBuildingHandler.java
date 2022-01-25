@@ -115,8 +115,8 @@ public class GraphBuildingHandler extends DefaultHandler {
             Node nodeHasName = new Node(curNode.getId(), curNode.getLongitude(), curNode.getLatitude());
             nodeHasName.setName(name);
             g.getNodesHaveName().put(curNode.getId(), nodeHasName);
-            g.getLocation().put(name, curNode.getId());
-            g.getLocation().put(cleanName, curNode.getId());
+            g.addLocation(name,curNode.getId());
+            g.addLocation(cleanName,curNode.getId());
 
             //添加前缀查询
             g.addTrieName(cleanName,name);
