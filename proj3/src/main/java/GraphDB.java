@@ -245,7 +245,7 @@ public class GraphDB {
         return nodes.get(node).getDistance();
     }
 
-    public List<String> getLocationByPrefix(String prefix) {
+    public List<String> getLocationsByPrefix(String prefix) {
         TrieNode endNode = trieNodeName.find(prefix);
         List<String> res = new LinkedList<>();
         if (endNode == null) {
