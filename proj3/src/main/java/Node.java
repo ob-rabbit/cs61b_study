@@ -20,9 +20,11 @@ public class Node {
 
     private Set<Long> adjacentNodes;
 
-    //节点额外信息
-    private Map<String, String> extraInfo;
     private Set<Long> ways;
+
+    private double priority = 0;
+
+    private double distance = 0;
 
     public Node() {
 
@@ -34,17 +36,18 @@ public class Node {
         this.longitude = lon;
 
         this.adjacentNodes = new HashSet<>();
-        this.extraInfo = new HashMap<>();
+
         this.ways = new HashSet<>();
     }
 
-    public Map<String, String> getExtraInfo() {
-        return extraInfo;
+    public double getDistance() {
+        return distance;
     }
 
-    public void setExtraInfo(Map<String, String> extraInfo) {
-        this.extraInfo = extraInfo;
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
+
 
     public String getName() {
         return name;
@@ -92,5 +95,13 @@ public class Node {
 
     public Set<Long> getWays() {
         return ways;
+    }
+
+    public double getPriority() {
+        return priority;
+    }
+
+    public void setPriority(double priority) {
+        this.priority = priority;
     }
 }

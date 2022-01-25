@@ -234,4 +234,8 @@ public class GraphDB {
     public Map<Long, Node> getNodesHaveName() {
         return nodesHaveName;
     }
+
+    public double getDistance(long node) {
+        return nodes.get(node).getDistance();
+    }
 }
