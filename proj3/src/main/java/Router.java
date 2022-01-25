@@ -76,6 +76,7 @@ public class Router {
         }
 
         LinkedList<Long> res = new LinkedList<>();
+        res.add(destNodeId);
         while (destNodeId != startNodeId) {
             if (edges.get(destNodeId) == null) {
                 return new LinkedList<>();
@@ -83,7 +84,6 @@ public class Router {
             res.addFirst(edges.get(destNodeId));
             destNodeId = edges.get(destNodeId);
         }
-        res.addFirst(destNodeId);
 
         for (Long node : g.vertices()) {
             g.getNode(node).setPriority(0);
