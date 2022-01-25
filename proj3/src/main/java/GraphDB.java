@@ -248,29 +248,29 @@ public class GraphDB {
     public List<String> getLocationByPrefix(String prefix) {
         TrieNode endNode = trieNodeName.find(prefix);
         List<String> res = new LinkedList<>();
-        if (endNode == null){
+        if (endNode == null) {
             return res;
         }
-        if (endNode.isEnd()){
+        if (endNode.isEnd()) {
             res.addAll(endNode.getNames());
         }
         for (Character character : endNode.getChildren().keySet()) {
-            getLocationByPrefix(prefix+character,res,endNode.getChild(character));
+            getLocationByPrefix(prefix + character, res, endNode.getChild(character));
         }
         return res;
     }
 
     private void getLocationByPrefix(String s, List<String> res, TrieNode child) {
-        if (child.isEnd()){
+        if (child.isEnd()) {
             res.addAll(child.getNames());
         }
         for (Character character : child.getChildren().keySet()) {
-            getLocationByPrefix(s+character,res,child.getChild(character));
+            getLocationByPrefix(s + character, res, child.getChild(character));
         }
     }
 
     public void addTrieName(String cleanName, String name) {
-        trieNodeName.add(cleanName,name);
+        trieNodeName.add(cleanName, name);
     }
 
     public List<Map<String, Object>> getLocations(String locationName) {
@@ -280,21 +280,21 @@ public class GraphDB {
         }
         for (long id : location.get(locationName)) {
             Node node = nodesHaveName.get(id);
-            Map<String,Object> map = new HashMap<>();
-            map.put("id",node.getId());
-            map.put("lat",node.getLatitude());
-            map.put("lon",node.getLongitude());
-            map.put("name",node.getName());
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", node.getId());
+            map.put("lat", node.getLatitude());
+            map.put("lon", node.getLongitude());
+            map.put("name", node.getName());
             res.add(map);
         }
         return res;
     }
 
     public void addLocation(String cleanName, long id) {
-        if (location.containsKey(cleanName)){
+        if (location.containsKey(cleanName)) {
             location.get(cleanName).add(id);
-        }else{
-            location.put(cleanName, Arrays.asList(id));
+        } else {
+            location.put(cleanName, new ArrayList<>(Arrays.asList(id)));
         }
     }
 }
