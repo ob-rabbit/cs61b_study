@@ -9,6 +9,8 @@ import javax.xml.parsers.SAXParserFactory;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,6 +37,8 @@ public class GraphDB {
     private Map<Long, Node> nodesHaveName = new LinkedHashMap<>();
 
     private KDTree kdTree = new KDTree();
+
+    private Trie trieNodeName = new Trie();
 
 
     /**
@@ -99,9 +103,9 @@ public class GraphDB {
     private void clean() {
         //删除没有相邻节点的节点
         Iterator<Long> iterator = nodes.keySet().iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Long next = iterator.next();
-            if (nodes.get(next).getAdjacentNodes().isEmpty()){
+            if (nodes.get(next).getAdjacentNodes().isEmpty()) {
                 iterator.remove();
             }
         }
@@ -188,7 +192,7 @@ public class GraphDB {
      * @return The id of the node in the graph closest to the target.
      */
     long closest(double lon, double lat) {
-        return kdTree.nearest(lon,lat);
+        return kdTree.nearest(lon, lat);
     }
 
     /**
@@ -237,5 +241,33 @@ public class GraphDB {
 
     public double getDistance(long node) {
         return nodes.get(node).getDistance();
+    }
+
+    public List<String> getLocationByPrefix(String prefix) {
+        TrieNode endNode = trieNodeName.find(prefix);
+        List<String> res = new LinkedList<>();
+        if (endNode == null){
+            return res;
+        }
+        if (endNode.isEnd()){
+            res.addAll(endNode.getNames());
+        }
+        for (Character character : endNode.getChildren().keySet()) {
+            getLocationByPrefix(prefix+character,res,endNode.getChild(character));
+        }
+        return res;
+    }
+
+    private void getLocationByPrefix(String s, List<String> res, TrieNode child) {
+        if (child.isEnd()){
+            res.addAll(child.getNames());
+        }
+        for (Character character : child.getChildren().keySet()) {
+            getLocationByPrefix(s+character,res,child.getChild(character));
+        }
+    }
+
+    public void addTrieName(String cleanName, String name) {
+        trieNodeName.add(cleanName,name);
     }
 }

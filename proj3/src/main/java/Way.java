@@ -28,10 +28,11 @@ public class Way {
         this.maxSpeed = maxSpeed;
     }
 
-    public Way(){
+    public Way() {
 
     }
-    public Way(long id){
+
+    public Way(long id) {
         this.id = id;
         this.nodes = new ArrayList<>();
     }

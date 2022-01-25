@@ -118,6 +118,9 @@ public class GraphBuildingHandler extends DefaultHandler {
             g.getLocation().put(name, curNode.getId());
             g.getLocation().put(cleanName, curNode.getId());
 
+            //添加前缀查询
+            g.addTrieName(cleanName,name);
+
         }
     }
 

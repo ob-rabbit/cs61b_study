@@ -45,7 +45,7 @@ public class KDTree {
     }
 
     public long nearest(double lon, double lat) {
-        return nearestNode(new Node(-1, lon, lat),root,Double.MAX_VALUE).getId();
+        return nearestNode(new Node(-1, lon, lat), root, Double.MAX_VALUE).getId();
     }
 
     private Node nearestNode(Node value, TreeNode curNode, double min) {
@@ -101,7 +101,7 @@ public class KDTree {
             }
         }
         Node secondBest = nearestNode(value, second, curMin);
-        if (secondBest != null){
+        if (secondBest != null) {
             minNode = secondBest;
         }
         return minNode;
